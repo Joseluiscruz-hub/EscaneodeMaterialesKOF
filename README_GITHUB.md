@@ -35,6 +35,7 @@ códigos QR. Incluye funcionalidades de comparación en tiempo real, dashboards 
 - Android SDK 24 o superior
 - Android Studio Hedgehog o superior
 - JDK 17
+- **Opcional**: API Key de Perplexity para asistencia con IA (ver [PERPLEXITY_API_SETUP.md](PERPLEXITY_API_SETUP.md))
 
 ## 🔧 Instalación
 
@@ -95,6 +96,19 @@ app/src/main/java/com/example/escaneodematerialeskof/
 - Control de capacidad
 - Organización por zonas
 - Alertas de ocupación
+
+## 🤖 Integración con IA (Opcional)
+
+El proyecto incluye integración con **Perplexity AI** para proporcionar asistencia inteligente en tiempo real sobre consultas de inventario y logística.
+
+**Características de la IA:**
+- Consultas sobre mejores prácticas de inventario
+- Sugerencias de optimización de almacenes
+- Asistencia en resolución de problemas logísticos
+
+Para configurar la API de Perplexity, consulta la guía completa: [PERPLEXITY_API_SETUP.md](PERPLEXITY_API_SETUP.md)
+
+⚠️ **Nota de Seguridad**: Nunca compartas tu API key públicamente. Usa variables de entorno o almacenamiento seguro.
 
 ## 👥 Autor
 

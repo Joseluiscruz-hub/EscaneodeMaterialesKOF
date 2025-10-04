@@ -1,0 +1,11 @@
+# Archivo de ejemplo para configuración de API Keys
+# Copia este archivo como 'apikeys.properties' y añade tus credenciales reales
+# NUNCA subas apikeys.properties a GitHub
+
+# Perplexity AI
+PERPLEXITY_API_KEY=pplx-tu-api-key-aqui
+
+# Otras API keys (si las necesitas en el futuro)
+# GOOGLE_MAPS_API_KEY=tu-api-key-aqui
+# FIREBASE_API_KEY=tu-api-key-aqui
+

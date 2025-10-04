@@ -158,7 +158,8 @@ class MainDashboardActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         perplexityViewModel.answer.observe(this) { response ->
-            Toast.makeText(this, "Respuesta: ${response.answer}", Toast.LENGTH_LONG).show()
+            val answer = response.choices.firstOrNull()?.message?.content ?: "Sin respuesta"
+            Toast.makeText(this, "Respuesta: $answer", Toast.LENGTH_LONG).show()
         }
 
         perplexityViewModel.error.observe(this) { error ->
