@@ -2,8 +2,13 @@
 # Copia este archivo como 'apikeys.properties' y añade tus credenciales reales
 # NUNCA subas apikeys.properties a GitHub
 
-# Perplexity AI
+# Perplexity AI - Para consultas con búsqueda en tiempo real
+# Obtén tu clave en: https://www.perplexity.ai/settings/api
 PERPLEXITY_API_KEY=pplx-tu-api-key-aqui
+
+# Google Gemini - Para análisis de datos, imágenes y generación de reportes
+# Obtén tu clave en: https://aistudio.google.com/app/apikey
+GEMINI_API_KEY=tu-gemini-api-key-aqui
 
 # Otras API keys (si las necesitas en el futuro)
 # GOOGLE_MAPS_API_KEY=tu-api-key-aqui

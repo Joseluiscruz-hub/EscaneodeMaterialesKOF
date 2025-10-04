@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.escaneodematerialeskof.ui.config.ConfiguracionActivity
 import com.example.escaneodematerialeskof.ui.opciones.MasOpcionesActivity
+import com.example.escaneodematerialeskof.viewmodel.GeminiViewModel
 import com.example.escaneodematerialeskof.viewmodel.PerplexityViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
@@ -34,6 +35,7 @@ class MainDashboardActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var barChart: BarChart
     private lateinit var perplexityViewModel: PerplexityViewModel
+    private lateinit var geminiViewModel: GeminiViewModel
     private lateinit var capturaViewModel: CapturaInventarioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class MainDashboardActivity : AppCompatActivity() {
 
         // Inicializar el ViewModel externo
         perplexityViewModel = ViewModelProvider(this).get(PerplexityViewModel::class.java)
+        geminiViewModel = ViewModelProvider(this).get(GeminiViewModel::class.java)
         // ViewModel con datos de inventario real
         capturaViewModel = ViewModelProvider(this).get(CapturaInventarioViewModel::class.java)
 
@@ -148,7 +151,7 @@ class MainDashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, NewInventarioResumenActivity::class.java))
         }
 
-        findViewById<MaterialButton>(R.id.btn_test_perplexity).setOnClickListener {
+        findViewById<MaterialButton>(R.id.btn_test_perplexity)?.setOnClickListener {
             val token = BuildConfig.PERPLEXITY_API_KEY
             if (token.isBlank()) {
                 Toast.makeText(this, "⚠️ Configura tu API key en apikeys.properties", Toast.LENGTH_LONG).show()
@@ -158,16 +161,58 @@ class MainDashboardActivity : AppCompatActivity() {
             perplexityViewModel.getAnswer(token, question)
             Toast.makeText(this, "Consultando a Perplexity AI...", Toast.LENGTH_SHORT).show()
         }
+
+        // Botón de prueba para Gemini
+        // Reemplazamos la referencia directa a R.id.btn_test_gemini porque no existe el ID en los layouts
+        val geminiBtnId = resources.getIdentifier("btn_test_gemini", "id", packageName)
+        if (geminiBtnId != 0) {
+            val geminiBtn = findViewById<MaterialButton>(geminiBtnId)
+            geminiBtn?.setOnClickListener {
+                val apiKey = BuildConfig.GEMINI_API_KEY
+                if (apiKey.isBlank()) {
+                    Toast.makeText(this, "⚠️ Configura tu API key de Gemini en apikeys.properties", Toast.LENGTH_LONG)
+                        .show()
+                    return@setOnClickListener
+                }
+
+                // Ejemplo: Analizar datos de inventario simulados
+                val inventoryData = """
+                Producto: Coca-Cola 355ml, Cantidad: 250 unidades, Almacén: A1
+                Producto: Sprite 2L, Cantidad: 120 unidades, Almacén: A2
+                Producto: Fanta 600ml, Cantidad: 80 unidades, Almacén: A1
+                Producto: Coca-Cola 2L, Cantidad: 45 unidades, Almacén: B1
+            """.trimIndent()
+
+                geminiViewModel.analyzeInventory(apiKey, inventoryData)
+                Toast.makeText(this, "🤖 Gemini está analizando tu inventario...", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun observeViewModel() {
+        // Observadores de Perplexity
         perplexityViewModel.answer.observe(this) { response ->
             val answer = response.choices.firstOrNull()?.message?.content ?: "Sin respuesta"
-            Toast.makeText(this, "Respuesta: $answer", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Perplexity: $answer", Toast.LENGTH_LONG).show()
         }
 
         perplexityViewModel.error.observe(this) { error ->
-            Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Error Perplexity: $error", Toast.LENGTH_LONG).show()
+        }
+
+        // Observadores de Gemini
+        geminiViewModel.response.observe(this) { response ->
+            val text = response.candidates.firstOrNull()
+                ?.content?.parts?.firstOrNull()?.text ?: "Sin respuesta"
+            Toast.makeText(this, "Gemini: $text", Toast.LENGTH_LONG).show()
+        }
+
+        geminiViewModel.error.observe(this) { error ->
+            Toast.makeText(this, "Error Gemini: $error", Toast.LENGTH_LONG).show()
+        }
+
+        geminiViewModel.loading.observe(this) { _ ->
+            // Aquí puedes mostrar/ocultar un ProgressBar si lo deseas
         }
     }
 

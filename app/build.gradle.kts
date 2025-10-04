@@ -23,13 +23,23 @@ android {
 
         // Cargar API keys desde apikeys.properties
         val apiKeysFile = rootProject.file("apikeys.properties")
-        val apiKeys = java.util.Properties()
+        var perplexityKey = ""
+        var geminiKey = ""
+
         if (apiKeysFile.exists()) {
-            apiKeys.load(java.io.FileInputStream(apiKeysFile))
+            apiKeysFile.readLines().forEach { line ->
+                when {
+                    line.startsWith("PERPLEXITY_API_KEY=") ->
+                        perplexityKey = line.substringAfter("=").trim()
+
+                    line.startsWith("GEMINI_API_KEY=") ->
+                        geminiKey = line.substringAfter("=").trim()
+                }
+            }
         }
 
-        // Configurar BuildConfig con la API key de Perplexity
-        buildConfigField("String", "PERPLEXITY_API_KEY", "\"${apiKeys.getProperty("PERPLEXITY_API_KEY", "")}\"")
+        buildConfigField("String", "PERPLEXITY_API_KEY", "\"$perplexityKey\"")
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiKey\"")
     }
 
     buildTypes {
