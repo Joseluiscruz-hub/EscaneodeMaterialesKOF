@@ -1,0 +1,208 @@
+<resources>
+    <string name="app_name">Escaneo de Materiales KOF</string>
+    <!-- InventoryComparisonActivity -->
+    <string name="seleccion_inventario_1">Inventario 1 (Base):</string>
+    <string name="seleccion_inventario_2">Inventario 2 (Comparación):</string>
+    <string name="seleccione_inventario">Seleccione un inventario…</string>
+    <string name="seleccione_dos_inventarios">Por favor seleccione dos inventarios para comparar</string>
+    <string name="resultados_comparacion">Resultados de la comparación:</string>
+    <string name="sku">SKU / Producto</string>
+    <string name="inventario_1">Inv. 1</string>
+    <string name="inventario_2">Inv. 2</string>
+    <string name="diferencia">Diferencia</string>
+    <string name="no_hay_diferencias">No hay diferencias entre los inventarios seleccionados</string>
+    <string name="inventarios_vacios">Uno o ambos inventarios están vacíos</string>
+    <string name="confirmar_comparacion">¿Desea comparar los inventarios seleccionados?</string>
+    <string name="inventario_1_cargado">Inventario 1 cargado correctamente</string>
+    <string name="inventario_2_cargado">Inventario 2 cargado correctamente</string>
+    <string name="error_cargar_inventario">Error al cargar inventario: %1$s</string>
+
+    <!-- CapturaInventarioActivity -->
+    <string name="inventory_capture">Captura de Inventario</string>
+    <string name="captura_rumba">Captura de Rumba</string>
+    <string name="captura_pallets">Captura de Pallets</string>
+    <string name="captura_manual">Captura Manual</string>
+    <string name="scan_prompt">Escanea el código QR</string>
+    <string name="escanear_rumba">Escanear Rumba</string>
+    <string name="escanear_pallets">Escanear Pallets</string>
+    <string name="toast_escanear_rumba">Escanea el código QR de la rumba</string>
+    <string name="toast_escanear_pallet">Escanea el código QR del pallet</string>
+    <string name="toast_manual">Ingresa los datos manualmente</string>
+    <string name="toast_datos_qr_extraidos">Datos extraídos del QR</string>
+    <string name="toast_siguiente_material">Listo para capturar siguiente material</string>
+    <string name="toast_error_guardar">Error al guardar: %1$s</string>
+    <string name="toast_error_enviar">Error al enviar: %1$s</string>
+    <string name="toast_inventario_reseteado">Inventario reseteado</string>
+    <string name="toast_no_inventario">No hay inventario para enviar</string>
+    <string name="reset_inventario">Resetear Inventario</string>
+    <string name="confirm_reset_inventario">¿Estás seguro de que deseas resetear el inventario? Esta acción no se puede deshacer.</string>
+
+    <!-- HomeFragment -->
+    <string name="iniciar_escaneo">Iniciar Escaneo</string>
+    <string name="comparar_inventarios">Comparar Inventarios</string>
+    <string name="mas_opciones">Más Opciones</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="captura">Captura</string>
+    <string name="comparar">Comparar</string>
+    <string name="resumen">Resumen</string>
+    <string name="importar">Importar</string>
+    <string name="exportar">Exportar</string>
+    <string name="configuracion">Configuración</string>
+    <string name="opciones_dashboard">Opciones de Dashboard</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="contrasena_incorrecta">Contraseña incorrecta</string>
+    <string name="cambiar_contrasena">Cambiar Contraseña</string>
+    <string name="contrasena_actual">Contraseña Actual</string>
+    <string name="nueva_contrasena">Nueva Contraseña</string>
+    <string name="guardar">Guardar</string>
+    <string name="contrasena_actualizada">Contraseña actualizada correctamente</string>
+    <string name="contrasena_actual_incorrecta">Contraseña actual incorrecta</string>
+    <string name="borrar_inventarios">Borrar Inventarios</string>
+    <string name="confirmar_borrar_inventarios">Esta acción eliminará todos los inventarios guardados. Ingrese la contraseña para confirmar.</string>
+    <string name="inventarios_borrados">Inventarios borrados correctamente</string>
+    <string name="borrar">Borrar</string>
+    <string name="opciones">Opciones</string>
+
+    <!-- MainDashboardPremiumActivity content descriptions -->
+    <!-- Los content descriptions específicos se movieron a la sección Dashboard Premium -->
+
+    <!-- Inventory Comparison específicos -->
+    <string name="importar_inventario_sistema">Importar Inventario del Sistema</string>
+    <string name="importar_inventario_escaneado">Importar Inventario Escaneado</string>
+    <string name="desde_archivo_csv">Desde archivo CSV</string>
+    <string name="desde_dispositivo">Desde dispositivo</string>
+    <string name="comparacion_inventarios">Comparación de Inventarios</string>
+    <string name="inventario_sistema_importado">Inventario del sistema importado correctamente</string>
+    <string name="inventario_escaneado_importado">Inventario escaneado importado correctamente</string>
+    <string name="inventario_cargado_dispositivo">Inventario cargado desde el dispositivo</string>
+    <string name="formato_csv_invalido">Formato de CSV no válido</string>
+    <string name="error_importar_inventario">Error al importar inventario: %1$s</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_capturar_inventario">Capturar Inventario</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_resumen_inventario">Resumen Inventario</string>
+    <string name="nav_comparar_inventarios">Comparar Inventarios</string>
+    <string name="nav_comparacion_tiempo_real">Comparación Tiempo Real</string>
+    <string name="nav_gestion_almacenes">Gestión de Almacenes</string>
+    <string name="nav_ajuste_inventario">Ajuste Inventario</string>
+    <string name="nav_gestion_reinicio">Gestión de Reinicio</string>
+    <string name="nav_reiniciar_comparacion">Reiniciar Comparación</string>
+    <string name="nav_reiniciar_completo">Reinicio Completo</string>
+    <string name="nav_configuracion">Configuración</string>
+    <string name="nav_mas_opciones">Más Opciones</string>
+    <!-- Strings añadidas para menu_lateral -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_inventory">Inventario</string>
+    <string name="nav_capture">Capturar</string>
+    <string name="nav_comparison">Comparar</string>
+    <string name="nav_section_other">Otros</string>
+    <string name="nav_settings">Configuración</string>
+    <string name="nav_about">Acerca de</string>
+
+    <!-- Navigation Header -->
+    <string name="nav_header_title">Escaneo KOF</string>
+    <string name="nav_header_subtitle">Sistema de Gestión de Inventarios</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <!-- Common Actions -->
+    <string name="eliminar">Eliminar</string>
+
+    <!-- Perplexity API Test -->
+    <string name="test_perplexity_api">Test Perplexity API</string>
+
+    <!-- Missing Strings -->
+    <string name="logo_description">Logo</string>
+    <string name="seleccionar_tipo_escaneo">Seleccionar tipo de escaneo</string>
+    <string name="comparaci_n">Comparación</string>
+    <string name="gesti_n">Gestión</string>
+    <string name="sistema">Sistema</string>
+    <string name="category_general">General</string>
+    <string name="pref_username">Nombre de usuario</string>
+    <string name="pref_default_scan_type">Tipo de escaneo por defecto</string>
+    <string name="category_appearance">Apariencia</string>
+    <string name="pref_dark_mode">Modo oscuro</string>
+
+    <!-- Navigation Drawer Strings -->
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+
+    <!-- Ajustes Inventario -->
+    <string name="ajustes_inventario">Ajustes de Inventario</string>
+    <string name="confirmar_ajustes_inventario">¿Confirmar ajustes de inventario?</string>
+
+    <!-- Reinicio -->
+    <string name="reinicio_comparacion">Reinicio de Comparación</string>
+    <string name="descripcion_reinicio_comparacion">Reinicia solo los datos de comparación</string>
+    <string name="reinicio_completo">Reinicio Completo</string>
+    <string name="descripcion_reinicio_completo">Reinicia todos los datos del sistema</string>
+    <string name="reinicio_exitoso">Reinicio exitoso</string>
+    <string name="error_reinicio">Error durante el reinicio</string>
+
+    <!-- Restos -->
+    <string name="nav_restos">Restos</string>
+
+    <!-- About / Información -->
+    <string name="about_title">Acerca de la Aplicación</string>
+    <string name="about_version_label">Versión</string>
+    <string name="about_description">Aplicación de gestión y escaneo de inventarios con dashboard premium optimizado.</string>
+    <string name="about_developer">Desarrollado por Equipo KOF</string>
+    <string name="about_close">Cerrar</string>
+
+    <!-- Accesibilidad / Content Description -->
+    <string name="cd_kpi_scanned_icon">Icono KPI materiales escaneados</string>
+    <string name="cd_kpi_sync_icon">Icono KPI estado de sincronización</string>
+    <string name="cd_chart_bar">Gráfico de barras de actividad reciente</string>
+
+    <!-- Estados -->
+    <string name="status_online">Online</string>
+    <string name="status_offline">Offline</string>
+    <string name="loading">Cargando…</string>
+    <string name="refreshing_data">Actualizando datos…</string>
+    <string name="updated">Actualizado</string>
+    <string name="refresh_error">No se pudo actualizar. Verifica tu conexión.</string>
+
+    <!-- Tooltips / ayudas -->
+    <string name="tip_scan">Escanear nuevos materiales</string>
+    <string name="tip_inventory">Ver inventario consolidado</string>
+    <string name="tip_perplexity">Probar conectividad servicio IA</string>
+
+    <!-- Nueva cadena para prefijo de última actualización -->
+    <string name="last_update_prefix">Últ. act.</string>
+
+    <!-- Accesibilidad específica del Dashboard -->
+    <string name="cd_header_background">Fondo del encabezado del dashboard</string>
+    <string name="cd_kpi_scanned_container">Tarjeta KPI de materiales escaneados</string>
+    <string name="cd_kpi_sync_container">Tarjeta KPI de estado de sincronización</string>
+
+    <!-- Dashboard Premium -->
+    <string name="gestion_integral_inventario">Gestión integral de inventario y materiales</string>
+    <string name="funciones_principales">📋 Funciones Principales</string>
+    <string name="capturar_inventario_icon">📱</string>
+    <string name="capturar_inventario">Capturar Inventario</string>
+    <string name="dashboard_icon">📊</string>
+    <string name="dashboard_text">Dashboard</string>
+    <string name="resumen_inventario_icon">📋</string>
+    <string name="resumen_inventario">Resumen Inventario</string>
+    <string name="comparar_tiempo_real_icon">⚡</string>
+    <string name="comparar_tiempo_real">Comparar Tiempo Real</string>
+    <string name="importar_datos_icon">📁</string>
+    <string name="importar_datos">Importar Datos</string>
+    <string name="configuracion_icon">⚙️</string>
+    <string name="configuracion_text">Configuración</string>
+    <string name="gestion_avanzada">🔧 Gestión Avanzada</string>
+    <string name="ajuste_inventario">🔄 Ajuste Inventario</string>
+    <string name="gestion_almacenes">🏭 Gestión Almacenes</string>
+    <string name="modulos_funcionando">Todos los módulos funcionando correctamente</string>
+    <string name="sistema_operativo_icon">✅</string>
+    <string name="sistema_operativo">Sistema Operativo</string>
+    <string name="version_sistema">v2.1.0</string>
+    <string name="logo_inventario_description">Logo del sistema de control de inventario FEMSA</string>
+
+    <!-- Añadidas para diálogo de comparación en MainDashboardPremiumActivity -->
+    <string name="comparacion_archivos_opcion">Comparación desde archivos</string>
+    <string name="opciones_comparacion">Opciones de comparación</string>
+</resources>

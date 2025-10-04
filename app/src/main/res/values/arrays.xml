@@ -1,0 +1,12 @@
+<resources>
+    <string-array name="scan_types">
+        <item>Rumba</item>
+        <item>Pallet</item>
+        <item>Manual</item>
+    </string-array>
+    <string-array name="scan_types_values">
+        <item>RUMBA</item>
+        <item>PALLET</item>
+        <item>MANUAL</item>
+    </string-array>
+</resources>

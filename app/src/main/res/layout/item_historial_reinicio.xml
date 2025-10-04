@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="#FAFAFA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <!-- Animación Lottie a la izquierda -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieReinicio"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:lottie_fileName="particles.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Contenido textual -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvFechaReinicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2025-07-19 14:30"
+                android:textColor="#607D8B"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUsuarioReinicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario: admin"
+                android:textColor="#388E3C"
+                android:textSize="13sp"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/tvDescripcionReinicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Se reinició el inventario por cierre de mes."
+                android:textColor="#212121"
+                android:textSize="15sp"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

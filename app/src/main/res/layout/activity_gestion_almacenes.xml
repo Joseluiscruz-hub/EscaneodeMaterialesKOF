@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context=".ui.almacenes.GestionAlmacenesActivity">
+
+    <!-- Formulario de configuración de almacén -->
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNombreAlmacen"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tilCapacidadMaxima">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombreAlmacen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_nombre_almacen"
+                android:imeOptions="actionNext"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCapacidadMaxima"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="@id/tilNombreAlmacen"
+            app:layout_constraintStart_toEndOf="@id/tilNombreAlmacen"
+            app:layout_constraintEnd_toStartOf="@+id/btnConfigurarAlmacen">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCapacidadMaxima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_capacidad_maxima"
+                android:inputType="number"
+                android:imeOptions="actionDone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfigurarAlmacen"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/btn_configurar"
+            app:icon="@drawable/ic_check_circle"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:layout_constraintTop_toTopOf="@id/tilNombreAlmacen"
+            app:layout_constraintBottom_toBottomOf="@id/tilNombreAlmacen"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Recycler de almacenes -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAlmacenes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tilNombreAlmacen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/layoutResumenSaturacion"
+            tools:listitem="@android:layout/simple_list_item_2"/>
+
+    <!-- Texto cuando no hay almacenes -->
+    <TextView
+            android:id="@+id/tvSinAlmacenes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_hay_almacenes"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/recyclerAlmacenes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Resumen de saturación -->
+    <LinearLayout
+            android:id="@+id/layoutResumenSaturacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#EBF5FF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+                android:id="@+id/tvTotalPalletsEscaneados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_pallets_escaneados"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/tvCapacidadTotalConfigurada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_capacidad_total"/>
+
+        <TextView
+                android:id="@+id/tvSaturacionPromedio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_saturacion_promedio"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

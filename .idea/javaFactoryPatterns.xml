@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaFactoryPatternStorage">
+    <option name="patterns">
+      <list>
+        <Pattern>
+          <option name="generationType" value="IMPLEMENTATION" />
+          <option name="name" value="sample_jpa_repository_pattern" />
+          <option name="systemPromptPattern">
+            <SystemPromptContent>
+              <option name="goal" value="## Goal&#10;&#10;Your task is to generate a JPA repository interface that extends both:&#10;&#10;1. A Spring Data JPA base repository (`JpaRepository`), and  &#10;2. A custom domain-level repository interface (`IXXXRepository`).&#10;&#10;The goal is to produce a fully usable Java interface suitable for production use.&#10;&#10;You are provided with:&#10;- A target interface definition to complete&#10;- A set of related data classes (entities, enums, etc.)&#10;&#10;" />
+              <option name="outputExample" value="&#10;```java&#10;&#10;public interface ArticleEntityRepository extends JpaRepository&lt;ArticleEntity, Long&gt;, IArticleEntityRepository {&#10;    @Override&#10;    ArticleEntity save(ArticleEntity entity);&#10;&#10;    @Override&#10;    Optional&lt;ArticleEntity&gt; findById(Long id);&#10;&#10;    @Query(&#10;            value = &quot;SELECT * FROM article_entity &quot; +&#10;                    &quot;WHERE MATCH(title, content) AGAINST (?1 IN BOOLEAN MODE) &quot; +&#10;                    &quot;ORDER BY id DESC LIMIT ?2 OFFSET ?3&quot;,&#10;            nativeQuery = true&#10;    )&#10;    List&lt;ArticleEntity&gt; searchByKeywordWithPagination(String keyword, int limit, int offset);&#10;}&#10;```&#10;" />
+              <option name="outputFormat" value="Your response must contain:&#10;- Output a complete `.java` interface file&#10;- Do not use markdown or explanation&#10;- The result must be immediately usable in a Spring project&#10;" />
+              <option name="rules" value="- If the interface defines **custom methods**, you must implement them using either:&#10;  - **Spring Data JPA method naming rules**, or&#10;  - `@Query` with **JPQL/native query**.&#10;&#10;- ❗ Even for standard JPA methods (e.g., `findById`, `save`), you must **explicitly redeclare** the method in the target interface to **resolve ambiguity** caused by multiple inherited interfaces.&#10;  This avoids **compile-time and mock test ambiguity errors**.&#10;&#10;- ✅ When implementing search methods that take a collection (e.g., `Set`, `List`) as a parameter:&#10;  - Prefer using **`IN`** queries (e.g., `WHERE x IN :collection`).&#10;  - If using JPQL or Native Query, always use `IN (:param)` syntax.&#10;  - Use method naming conventions like `findByFieldIn(Collection&lt;?&gt; values)` when possible.&#10;&#10;" />
+            </SystemPromptContent>
+          </option>
+          <option name="userPromptContent">
+            <UserPromptContent>
+              <option name="items">
+                <list>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="api interface" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="DATA" />
+                        <option value="OTHER_REFERENCED" />
+                      </list>
+                    </option>
+                    <option name="key" value="referencedSources" />
+                  </UserPromptItem>
+                </list>
+              </option>
+            </UserPromptContent>
+          </option>
+        </Pattern>
+        <Pattern>
+          <option name="generationType" value="TEST" />
+          <option name="name" value="sample_jpa_repository_test_pattern" />
+          <option name="systemPromptPattern">
+            <SystemPromptContent>
+              <option name="goal" value="Your task is to generate a JPA Repository test class for the given interface and its implementation.&#10;&#10;You are given:&#10;1. The repository interface defining the methods to test&#10;2. The JPA implementation containing actual query logic&#10;3. Additional user requirements for the test like data or entity class&#10;" />
+              <option name="outputExample" value="import org.junit.jupiter.api.DisplayName;&#10;import org.junit.jupiter.api.Test;&#10;import org.springframework.beans.factory.annotation.Autowired;&#10;import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;&#10;import java.util.HashSet;&#10;import java.util.List;&#10;import java.util.Set;&#10;&#10;import java.util.Optional;&#10;&#10;import static org.junit.jupiter.api.Assertions.*;&#10;&#10;@DataJpaTest&#10;class DefaultFooEntityRepositoryTest {&#10;&#10;    @Autowired&#10;    private FooEntityRepository fooEntityRepository;&#10;&#10;    @Test&#10;    @DisplayName(&quot;Find by id success case&quot;)&#10;    void findByIdInSuccessCase() {&#10;        FooEntity foo = new FooEntity(1L, &quot;name&quot;, &quot;content&quot;);&#10;        fooEntityRepository.save(foo);&#10;&#10;        Optional&lt;FooEntity&gt; fetchedFoo = fooEntityRepository.findById(1L);&#10;&#10;        assertTrue(fetchedFoo.isPresent());&#10;        assertEquals(1L, fetchedFoo.get().getId());&#10;    }&#10;&#10;    @Test&#10;    @DisplayName(&quot;Find by id failure case&quot;)&#10;    void findByIdFailureCase() {&#10;        Optional&lt;FooEntity&gt; fetchedFoo = fooEntityRepository.findById(1L);&#10;&#10;        assertFalse(fetchedFoo.isPresent());&#10;    }&#10;&#10;    @Test&#10;    @DisplayName(&quot;Find by name containing success case&quot;)&#10;    void findByNameContainingSuccessCase() {&#10;        FooEntity foo = new FooEntity(1L, &quot;Keyword1&quot;, &quot;content&quot;,Set.of());&#10;        fooEntityRepository.save(foo);&#10;        List&lt;FooEntity&gt; fetchedFoo = fooEntityRepository.findByNameContaining(&quot;Keyword&quot;);&#10;&#10;        assertFalse(fetchedFoo.isEmpty());&#10;        assertTrue(fetchedFoo.stream().anyMatch(it -&gt; it.getName().contains(&quot;Keyword&quot;)));&#10;    }&#10;}&#10;" />
+              <option name="outputFormat" value="Your response must be a **complete `.java` class** that can be directly saved into the codebase.&#10;&#10;Output Rules:&#10;1. Output only raw `.java` code — **do not** include markdown or explanation.&#10;&#10;" />
+              <option name="rules" value="- ✅ You must use @DataJpaTest unless otherwise specified.&#10;- ✅ For each method declared in the interface:&#10;  - Write at least one success test case, if applicable.&#10;  - Write at least one failure or edge case, if meaningful.&#10;- ✅ Use @DisplayName with a short English description for each test.&#10;- ✅ Focus on realistic, practical unit test scenarios.&#10;- ✅ When accessing or modifying data (e.g., calling getters, setters, or constructors), you must only use **fields and methods explicitly declared as public**.&#10;-  Do not access private members or use undefined methods or logic.&#10;-  Do not set or change auto-generated Id manually&#10;&#10;" />
+            </SystemPromptContent>
+          </option>
+          <option name="userPromptContent">
+            <UserPromptContent>
+              <option name="items">
+                <list>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="apiSource" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_DEFAULT_API_IMPL" />
+                      </list>
+                    </option>
+                    <option name="key" value="implSource" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="DATA" />
+                        <option value="OTHER_REFERENCED" />
+                      </list>
+                    </option>
+                    <option name="key" value="referencedSources" />
+                  </UserPromptItem>
+                </list>
+              </option>
+            </UserPromptContent>
+          </option>
+        </Pattern>
+        <Pattern>
+          <option name="generationType" value="FIXTURE" />
+          <option name="name" value="sample_jpa_repository_fixture_pattern" />
+          <option name="systemPromptPattern">
+            <SystemPromptContent>
+              <option name="goal" value="Your task is to generate a Fixture class for the given JPA Repository interface.&#10;&#10;You are given:&#10;1. A repository interface defining the methods&#10;2. The corresponding JPA implementation class&#10;3. data or utility classes&#10;" />
+              <option name="outputExample" value="Example:&#10;&#10;public class FakeAlarmEntityRepository implements IAlarmEntityRepository {&#10;&#10;    private static IAlarmEntityRepository INSTANCE = new FakeAlarmEntityRepository();&#10;&#10;    @Getter&#10;    private final HashMap&lt;Long, AlarmEntity&gt; db = new HashMap&lt;&gt;();&#10;    private final AtomicLong idGenerator = new AtomicLong();&#10;&#10;    private FakeAlarmEntityRepository() {}&#10;&#10;    public static IAlarmEntityRepository getInstance() {&#10;        if (INSTANCE == null) {&#10;            INSTANCE = new FakeAlarmEntityRepository();&#10;        }&#10;        return INSTANCE;&#10;    }&#10;&#10;    public static void setField(Object targetObject, String fieldName, Object value) {&#10;                    try {&#10;                        Field field = targetObject.getClass().getDeclaredField(fieldName);&#10;                        field.setAccessible(true);&#10;                        field.set(targetObject, value);&#10;                    } catch (Exception e) {&#10;                        throw new RuntimeException(&quot;Failed to set field &quot; + fieldName, e);&#10;                    }&#10;                }&#10;}&#10;" />
+              <option name="outputFormat" value="Output must be:&#10;- A complete `.java` class&#10;- Only pure Java code (no markdown, no external explanation)&#10;- Comments allowed only **inside the Java class itself**&#10;&#10;" />
+              <option name="rules" value="        - ✅ Simulate repository behaviors in pure java using in-memory collections (HashMap, etc).&#10;        - ✅ Implement Singleton Pattern:&#10;          - private static instance&#10;          - public static getInstance()&#10;          - private constructor&#10;        - ✅ Use and define setField(...) to manually assign values to private fields such as `id`.&#10;        - ✅ Implement all interface methods, including custom ones.&#10;" />
+            </SystemPromptContent>
+          </option>
+          <option name="userPromptContent">
+            <UserPromptContent>
+              <option name="items">
+                <list>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="apiSource" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_DEFAULT_API_IMPL" />
+                      </list>
+                    </option>
+                    <option name="key" value="implSource" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="DATA" />
+                        <option value="OTHER_REFERENCED" />
+                      </list>
+                    </option>
+                    <option name="key" value="otherReferenced" />
+                  </UserPromptItem>
+                </list>
+              </option>
+            </UserPromptContent>
+          </option>
+        </Pattern>
+        <Pattern>
+          <option name="generationType" value="IMPLEMENTATION" />
+          <option name="name" value="sample_domain_api_impl_pattern" />
+          <option name="systemPromptPattern">
+            <SystemPromptContent>
+              <option name="goal" value="Implement a Java class that fulfills the contract of a given domain-level interface using only the referenced classes.&#10;&#10;You may only use public constructors, methods, and fields explicitly visible in the provided class definitions.&#10;Do not assume the existence of utility methods, static factories (e.g., fromEntity, toDomain), mappers, or overloaded constructors.&#10;If logic cannot be implemented using only those elements, return null or an empty list as a fallback.&#10;&#10;&#10;" />
+              <option name="outputExample" value="&#10;import org.example.domain.book.api.BookReader;&#10;     import org.example.domain.book.Book;&#10;&#10;     import org.example.infra.bookEntity.BookEntityRepository;&#10;     import org.springframework.data.domain.Pageable;&#10;     import org.springframework.stereotype.Component;&#10;&#10;     import java.util.List;&#10;     import java.util.stream.Collectors;&#10;&#10;     @Component&#10;     @RequiredArgsConstructor&#10;     public class DefaultBookReader implements BookReader {&#10;&#10;         private final BookRepository bookRepository;&#10;&#10;         public DefaultBookReader(BookRepository bookRepository) {&#10;             this.bookRepository = bookRepository;&#10;         }&#10;&#10;         @Override&#10;         public List&lt;Book&gt; findAll() {&#10;             // TODO: implement using available repository methods&#10;             return Collections.emptyList();&#10;         }&#10;&#10;         @Override&#10;         public Book findById(Long id) {&#10;             // TODO: implement using available repository methods&#10;             return null;&#10;         }&#10;     }&#10;" />
+              <option name="outputFormat" value="Return only:&#10;- One complete `.java` class&#10;- No markdown&#10;- No external explanations or comments&#10;&#10;" />
+              <option name="rules" value="- Return a valid, compilable Java class with minimal logic.&#10;- implements method in api using provided classes, you can only use provided public method in user Prompt  &#10;- you can make private method like mapper method, so that can make valid implementation given referneces&#10;- Use only constructors, fields, and methods explicitly visible in the provided code.&#10;- Avoid any inferred helpers, mappers, or utility code.&#10;&#10;" />
+            </SystemPromptContent>
+          </option>
+          <option name="userPromptContent">
+            <UserPromptContent>
+              <option name="items">
+                <list>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="api" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="DATA" />
+                        <option value="OTHER_REFERENCED" />
+                        <option value="REFERENCED_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="otherReferences" />
+                  </UserPromptItem>
+                </list>
+              </option>
+            </UserPromptContent>
+          </option>
+        </Pattern>
+        <Pattern>
+          <option name="generationType" value="TEST" />
+          <option name="name" value="sample_domain_api_test_pattern" />
+          <option name="systemPromptPattern">
+            <SystemPromptContent>
+              <option name="goal" value="Write a unit test class for the given domain implementation class,&#10;&#10;You may only use public constructors, methods, and fields explicitly visible in the provided class definitions.&#10;Do not assume the existence of utility methods, static factories (e.g., fromEntity, toDomain), mappers, or overloaded constructors.&#10;If logic cannot be implemented using only those elements, return null or an empty list as a fallback.&#10;&#10;You will be provided with:&#10;&#10;1. A domain-level interface that defines the expected behaviors&#10;2. The implementation class of the interface&#10;3. Fixtures for dependency injection (DI)&#10;4. A set of referenced classes (e.g., data models, enums, utilities)&#10;&#10;" />
+              <option name="outputExample" value="Example:&#10;&#10;@Component&#10;@RequiredArgsConstructor&#10;&#10;class DefaultAlarmReaderTest {&#10;&#10;    private IAlarmEntityRepositoryFixture fixture;&#10;    private DefaultAlarmReader alarmReader;&#10;    private LocalDateTime now;&#10;&#10;    @BeforeEach&#10;    void setup() {&#10;        fixture = new IAlarmEntityRepositoryFixture();&#10;        alarmReader = new DefaultAlarmReader(fixture);&#10;        now = LocalDateTime.now();&#10;    }&#10;&#10;    @Test&#10;    @DisplayName(&quot;listAll returns all alarms before&quot;)&#10;    void listAll_shouldReturnAllAlarmsBeforeGivenDate() {&#10;        // Test code&#10;    }&#10;&#10;    @Test&#10;    @DisplayName(&quot;listUnchecked returns all alarms before unchecked &quot;)&#10;    void listUnchecked_shouldReturnOnlyUncheckedAlarms() {&#10;        // Test code&#10;    }&#10;}&#10;" />
+              <option name="outputFormat" value="  Return only:&#10;- One complete `.java` class&#10;- No markdown&#10;- No external explanations or comments&#10;&#10;" />
+              <option name="rules" value="- Write test methods for every method declared in the interface.&#10;- Each test must cover at least one success case and optionally edge/failure cases.&#10;- Inject fixture objects when instantiating the implementation class.&#10;- Use pure Java with JUnit 5.&#10;- Annotate each test with @DisplayName using Korean to describe the test purpose.&#10;- Do not invent helper methods, factories, or mock behavior beyond what is defined.&#10;" />
+            </SystemPromptContent>
+          </option>
+          <option name="userPromptContent">
+            <UserPromptContent>
+              <option name="items">
+                <list>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="api" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_DEFAULT_API_IMPL" />
+                      </list>
+                    </option>
+                    <option name="key" value="implementation" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="DATA" />
+                        <option value="OTHER_REFERENCED" />
+                      </list>
+                    </option>
+                    <option name="key" value="otherReferences" />
+                  </UserPromptItem>
+                </list>
+              </option>
+            </UserPromptContent>
+          </option>
+        </Pattern>
+        <Pattern>
+          <option name="generationType" value="FIXTURE" />
+          <option name="name" value="sample_domain_api_fixture_pattern" />
+          <option name="systemPromptPattern">
+            <SystemPromptContent>
+              <option name="goal" value="Write a test fixture class for a given domain-level API interface.&#10;This fixture must wrap the real implementation class (`DefaultXxx`) and simulate its behavior for testing environments.&#10;&#10;You are given:&#10;- A domain-level API interface&#10;- The corresponding real implementation class (`DefaultXxx`)&#10;- Related dependency fixtures (`FakeRepository.getInstance()` etc.)&#10;" />
+              <option name="outputExample" value="Example:&#10;&#10;&#10;public class FakeDdReader implements DdReader {&#10;&#10;    private static DdReader INSTANCE;&#10;&#10;    private FakeDdReader() {}&#10;&#10;    public static DdReader getInstance() {&#10;        if (INSTANCE == null) {&#10;            INSTANCE = new DefaultDdReader(FakeIE1Repository.getInstance());&#10;        }&#10;        return INSTANCE;&#10;    }&#10;&#10;    @Override&#10;    public Dd findById(Long id) {&#10;        return getInstance().findById(id);&#10;    }&#10;}&#10;" />
+              <option name="outputFormat" value="Output must be:&#10;- A complete `.java` class file&#10;- Only pure Java code without markdown blocks, external explanations, or additional comments&#10;- Inline Java comments allowed inside the class if needed.&#10;" />
+              <option name="rules" value="- ✅ Class name must be `FakeDefault[InterfaceName]`.&#10;- ✅ Singleton pattern must be implemented:&#10;  - private static instance field&#10;  - public static getInstance() method&#10;  - private constructor&#10;- ✅ The fixture must internally instantiate the corresponding `DefaultXxx` implementation.&#10;  - Use `FakeRepository.getInstance()` or other fixtures for dependencies.&#10;- ✅ All methods must directly delegate to `getInstance().method(...)`.&#10;- ✅ Preserve the `@JavaFactoryClass` annotation exactly as given (do not modify, add, or remove annotations).&#10;" />
+            </SystemPromptContent>
+          </option>
+          <option name="userPromptContent">
+            <UserPromptContent>
+              <option name="items">
+                <list>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_API" />
+                      </list>
+                    </option>
+                    <option name="key" value="apiSource" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="TARGET_DEFAULT_API_IMPL" />
+                      </list>
+                    </option>
+                    <option name="key" value="implSource" />
+                  </UserPromptItem>
+                  <UserPromptItem>
+                    <option name="flags">
+                      <list>
+                        <option value="DATA" />
+                        <option value="OTHER_REFERENCED" />
+                      </list>
+                    </option>
+                    <option name="key" value="otherReferenced" />
+                  </UserPromptItem>
+                </list>
+              </option>
+            </UserPromptContent>
+          </option>
+        </Pattern>
+      </list>
+    </option>
+  </component>
+</project>
