@@ -99,9 +99,11 @@ app/src/main/java/com/example/escaneodematerialeskof/
 
 ## 🤖 Integración con IA (Opcional)
 
-El proyecto incluye integración con **Perplexity AI** para proporcionar asistencia inteligente en tiempo real sobre consultas de inventario y logística.
+El proyecto incluye integración con **Perplexity AI** para proporcionar asistencia inteligente en tiempo real sobre
+consultas de inventario y logística.
 
 **Características de la IA:**
+
 - Consultas sobre mejores prácticas de inventario
 - Sugerencias de optimización de almacenes
 - Asistencia en resolución de problemas logísticos

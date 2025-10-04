@@ -149,10 +149,14 @@ class MainDashboardActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialButton>(R.id.btn_test_perplexity).setOnClickListener {
-            val token = "<TU_TOKEN_PERPLEXITY>" // Sustituir por token válido si aplica
-            val question = "¿Cómo integrar Perplexity en IntelliJ?"
+            val token = BuildConfig.PERPLEXITY_API_KEY
+            if (token.isBlank()) {
+                Toast.makeText(this, "⚠️ Configura tu API key en apikeys.properties", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            val question = "¿Cuáles son las mejores prácticas para organizar un almacén de bebidas?"
             perplexityViewModel.getAnswer(token, question)
-            Toast.makeText(this, "Consultando a Perplexity...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Consultando a Perplexity AI...", Toast.LENGTH_SHORT).show()
         }
     }
 

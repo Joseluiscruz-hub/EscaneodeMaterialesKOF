@@ -20,6 +20,16 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Cargar API keys desde apikeys.properties
+        val apiKeysFile = rootProject.file("apikeys.properties")
+        val apiKeys = java.util.Properties()
+        if (apiKeysFile.exists()) {
+            apiKeys.load(java.io.FileInputStream(apiKeysFile))
+        }
+
+        // Configurar BuildConfig con la API key de Perplexity
+        buildConfigField("String", "PERPLEXITY_API_KEY", "\"${apiKeys.getProperty("PERPLEXITY_API_KEY", "")}\"")
     }
 
     buildTypes {
@@ -41,6 +51,7 @@ android {
         compose = true
         viewBinding = true
         dataBinding = false // Desactivado explícitamente (no se usan layouts <layout>)
+        buildConfig = true // Habilitar BuildConfig para API keys
     }
     dependenciesInfo {
         includeInApk = true

@@ -2,7 +2,8 @@
 
 ## 📋 Descripción
 
-Este proyecto incluye integración con la API de Perplexity para proporcionar asistencia inteligente basada en IA para consultas relacionadas con inventario y logística.
+Este proyecto incluye integración con la API de Perplexity para proporcionar asistencia inteligente basada en IA para
+consultas relacionadas con inventario y logística.
 
 ## 🔑 Obtener tu API Key
 
@@ -17,6 +18,7 @@ Este proyecto incluye integración con la API de Perplexity para proporcionar as
 ### Opción 1: Configuración Directa (No Recomendada para Producción)
 
 En `MainDashboardActivity.kt`, línea 152:
+
 ```kotlin
 val token = "pplx-TU_API_KEY_AQUI" // Reemplaza con tu API key real
 ```
@@ -25,11 +27,13 @@ val token = "pplx-TU_API_KEY_AQUI" // Reemplaza con tu API key real
 
 1. Crea un archivo `local.properties` en la raíz del proyecto (si no existe)
 2. Agrega tu API key:
+
 ```properties
 PERPLEXITY_API_KEY=pplx-tu-api-key-aqui
 ```
 
 3. Modifica `build.gradle.kts` del módulo `app`:
+
 ```kotlin
 android {
     // ...
@@ -44,6 +48,7 @@ android {
 ```
 
 4. Usa la API key en tu código:
+
 ```kotlin
 val token = BuildConfig.PERPLEXITY_API_KEY
 ```
@@ -55,11 +60,13 @@ Usa Android Keystore o cifrado para almacenar la API key de forma segura.
 ## 📡 Endpoint y Modelos
 
 ### Endpoint
+
 ```
 https://api.perplexity.ai/chat/completions
 ```
 
 ### Request
+
 ```json
 {
   "model": "llama-3.1-sonar-small-128k-online",
@@ -77,6 +84,7 @@ https://api.perplexity.ai/chat/completions
 ```
 
 ### Response
+
 ```json
 {
   "id": "...",
@@ -106,6 +114,7 @@ https://api.perplexity.ai/chat/completions
 - **llama-3.1-sonar-huge-128k-online** (Máxima capacidad)
 
 Puedes cambiar el modelo en `PerplexityRequest.kt`:
+
 ```kotlin
 data class PerplexityRequest(
     @SerializedName("model")
@@ -156,18 +165,21 @@ perplexityViewModel.getAnswer(
 ## ⚠️ Seguridad
 
 ### ❌ NO HAGAS ESTO:
+
 ```kotlin
 // NO expongas tu API key en el código
 val token = "pplx-1234567890abcdef" 
 ```
 
 ### ✅ HAZ ESTO:
+
 ```kotlin
 // Usa BuildConfig o almacenamiento seguro
 val token = BuildConfig.PERPLEXITY_API_KEY
 ```
 
 ### Antes de Subir a GitHub:
+
 1. Asegúrate de que `local.properties` esté en `.gitignore`
 2. No incluyas API keys en el código
 3. Usa variables de entorno o secretos de GitHub Actions para CI/CD
@@ -175,18 +187,22 @@ val token = BuildConfig.PERPLEXITY_API_KEY
 ## 🔧 Solución de Problemas
 
 ### Error 401 - Unauthorized
+
 - Verifica que tu API key sea correcta
 - Asegúrate de incluir el prefijo "Bearer " en el header de autorización
 
 ### Error 429 - Too Many Requests
+
 - Has excedido el límite de rate limiting
 - Espera un momento antes de hacer más solicitudes
 
 ### Error 500 - Server Error
+
 - Error del servidor de Perplexity
 - Intenta nuevamente más tarde
 
 ### No hay respuesta
+
 - Verifica tu conexión a internet
 - Asegúrate de que la estructura del request sea correcta
 - Revisa los logs para más detalles
@@ -200,6 +216,7 @@ val token = BuildConfig.PERPLEXITY_API_KEY
 ## 🆘 Soporte
 
 Si tienes problemas con la integración:
+
 1. Verifica los logs de Android (Logcat)
 2. Asegúrate de tener permisos de INTERNET en el AndroidManifest.xml
 3. Verifica que Retrofit y Gson estén correctamente configurados
