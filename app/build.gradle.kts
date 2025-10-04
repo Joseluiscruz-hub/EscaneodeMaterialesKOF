@@ -28,8 +28,9 @@ android {
             apiKeys.load(java.io.FileInputStream(apiKeysFile))
         }
 
-        // Configurar BuildConfig con la API key de Perplexity
+        // Configurar BuildConfig con las API keys
         buildConfigField("String", "PERPLEXITY_API_KEY", "\"${apiKeys.getProperty("PERPLEXITY_API_KEY", "")}\"")
+        buildConfigField("String", "GEMINI_API_KEY", "\"${apiKeys.getProperty("GEMINI_API_KEY", "")}\"")
     }
 
     buildTypes {
